@@ -1,6 +1,7 @@
 """Simple calculator with no fancy GUI"""
 import sys
 
+
 def get_python_version() -> str:
     return f'{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}'
 
@@ -20,7 +21,7 @@ def get_number(prompt: str) -> float:
     return x
 
 
-def get_operation() -> str:
+def get_operation() -> str | None:
     while True:
         response = input('Which operation (+, -, *, /)? ')
         match response:
@@ -31,9 +32,10 @@ def get_operation() -> str:
             case _:
                 print('invalid operation')
 
+    return None
 
 
-def performOperation(num1, num2, operation):
+def perform_operation(num1, num2, operation):
     match operation:
         case '+':
             return num1 + num2
@@ -44,16 +46,18 @@ def performOperation(num1, num2, operation):
         case '/':
             return num1 / num2
 
+    return None
 
-def performOneCalculation() -> None:
+
+def perform_one_calculation() -> None:
     num1 = get_number('Enter the first number:')
     num2 = get_number('Enter the second number:')
     operation = get_operation()
-    result = performOperation(num1, num2, operation)
+    result = perform_operation(num1, num2, operation)
     print(f'{num1} {operation} {num2} = {result}')
 
 
-def askYesNoQuestion(question: str) -> bool:
+def ask_yes_no_question(question: str) -> bool:
     yn = input(question)
     if len(yn) == 0:
         return False
@@ -67,7 +71,7 @@ if __name__ == '__main__':
 
     keepCalculating = True
     while keepCalculating:
-        performOneCalculation()
-        keepCalculating = askYesNoQuestion("Perform another calculation?")
+        perform_one_calculation()
+        keepCalculating = ask_yes_no_question("Perform another calculation?")
 
     print('Thank you for using my calculator')
